@@ -1,0 +1,43 @@
+.uploader-box.has-advanced-upload .box__dragndrop {
+  display: inline;
+}
+.uploader-box .box__icon {
+  width: 100%;
+  height: 80px;
+  fill: #92b0b3;
+  display: block;
+  margin-bottom: 40px;
+}
+.uploader-box .box__file {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.uploader-box .box__file + label {
+  max-width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+}
+.uploader-box .box__file:focus + label,
+.uploader-box .box__file + label:hover strong{
+  color:#39bfd3;
+}
+.uploader-box .box__file + label * {
+	pointer-events: none;
+}
+.uploader-box .box__dragndrop,
+.uploader-box .box__uploading {
+  display: none;
+}
+.uploader-box.is-uploading .box__input {
+  visibility: hidden;
+}
+.uploader-box.is-uploading .box__uploading {
+  display: block;
+}

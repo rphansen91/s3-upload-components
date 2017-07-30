@@ -1,22 +1,22 @@
-import React from 'react';
+import React from 'react'
+import './item.css'
 
-const itemUrl = name => [
-  '//',
-  process.env.REACT_APP_BUCKET_NAME,
-  '.s3.amazonaws.com/',
-  name
-].join('')
+const itemUrl = (bucket, name) =>
+  ['//', bucket, '.s3.amazonaws.com/', name].join('')
 
-const Item = ({ item }) =>
-  <div className='item'>
-    <img src={itemUrl(item.Key)} />
-    <pre>
-      {item.Key}
-    </pre>
-  </div>
+const Item = ({ bucket, item }) => {
+  const url = itemUrl(bucket, item.Key)
 
+  return (
+    <a className='item' href={url} target='_blank'>
+      <img src={url} />
+      <pre>{item.Key}</pre>
+    </a>
+  )
+}
 
-export default ({ items }) =>
+export default ({ items, bucket }) => (
   <div className='items'>
-    { items.map((item, i) => <Item key={i} item={item} />) }
+    {items.map((item, i) => <Item key={i} bucket={bucket} item={item} />)}
   </div>
+)

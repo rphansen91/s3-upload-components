@@ -1,0 +1,17 @@
+.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+  margin: 1em;
+}
+.item img {
+  width: 100%;
+}

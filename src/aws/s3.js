@@ -1,15 +1,19 @@
-/* global AWS */
-
-import './config'
+import configAWS from './config'
 import promisify from '../utility/promisify'
 
-if (!process.env.REACT_APP_BUCKET_NAME) throw `'REACT_APP_BUCKET_NAME' env variable is required`
+export default ({ name, region, identityPool }) => {
+  if (!name) return Promise.reject(new Error(`bucket 'name' must be supplied`))
 
-const s3 = new AWS.S3({
-  apiVersion: '2006-03-01',
-  params: {Bucket: process.env.REACT_APP_BUCKET_NAME}
-})
-
-export const listAll = promisify(s3.listObjects.bind(s3))
-export const uploadItem = promisify(s3.upload.bind(s3))
-export const deleteItem = promisify(s3.deleteObject.bind(s3))
+  return configAWS(region, identityPool)
+  .then(AWS => {
+    return new AWS.S3({
+      apiVersion: '2006-03-01',
+      params: {Bucket: name}
+    })
+  })
+  .then(s3 => ({
+    listAll: promisify(s3.listObjects.bind(s3)),
+    uploadItem: promisify(s3.upload.bind(s3)),
+    deleteItem: promisify(s3.deleteObject.bind(s3))
+  }))
+}
